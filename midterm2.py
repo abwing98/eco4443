@@ -1,3 +1,4 @@
+
 from pandas import read_csv
 import numpy as np
 import statsmodels.api as sm
@@ -36,15 +37,18 @@ model.fit(x_train, y_train)
 trainpredictions = model.predict(x_train)
 testpredictions = model.predict(x_test)
 #plot the model
-plt.scatter(y_test, predictions)
+plt.scatter(y_test, testpredictions)
 plt.xlabel("True Values")
 plt.ylabel("Predictions")
 plt.title("Model 1 (Pre Cross-Validation)")
 #score the model
 print("Training R^2:", model.score(x_train,y_train))
 print("Testing R^2:", model.score(x_test,y_test))
-print("Training MSE:", sum((y_train - trainpredictions)**2)/model.nobs)
-print("Testing MSE:", sum((y_test - testpredictions)**2)/len(y_test))
+trainmse = np.sum((y_train - trainpredictions)**2)/9000
+testmse = np.sum((y_test - testpredictions)**2)/1000
+print("Train MSE=", trainmse)
+print("Test MSE=", testmse)
+
 #Perform 10-Fold Cross Validation
 scores = cross_val_score(model, df, y, cv=10)
 print("Cross-validated scores:", scores)
@@ -314,7 +318,8 @@ plt.ylabel("Predictions")
 plt.title("Model 7 (Pre Cross-Validation)")
 #score the model
 print("Training R^2:", model.score(x_train,y_train))
-print("Testing R^2:", model.score(x_test,y_test))   
+print("Testing R^2:", model.score(x_test,y_test))
+train_error, test_error = calc_metrics(x_train, y_train, x_test, y_test, lr)
 #Perform 10-Fold Cross Validation
 scores = cross_val_score(model, df, y, cv=10)
 print("Cross-validated scores:", scores)
