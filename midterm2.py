@@ -33,7 +33,8 @@ print(x_test.shape, y_test.shape)
 #fit a model
 model = LinearRegression()
 model.fit(x_train, y_train)
-predictions = model.predict(x_test)
+trainpredictions = model.predict(x_train)
+testpredictions = model.predict(x_test)
 #plot the model
 plt.scatter(y_test, predictions)
 plt.xlabel("True Values")
@@ -42,7 +43,8 @@ plt.title("Model 1 (Pre Cross-Validation)")
 #score the model
 print("Training R^2:", model.score(x_train,y_train))
 print("Testing R^2:", model.score(x_test,y_test))
-
+print("Training MSE:", sum((y_train - trainpredictions)**2)/model.nobs)
+print("Testing MSE:", sum((y_test - testpredictions)**2)/len(y_test))
 #Perform 10-Fold Cross Validation
 scores = cross_val_score(model, df, y, cv=10)
 print("Cross-validated scores:", scores)
@@ -312,8 +314,7 @@ plt.ylabel("Predictions")
 plt.title("Model 7 (Pre Cross-Validation)")
 #score the model
 print("Training R^2:", model.score(x_train,y_train))
-print("Testing R^2:", model.score(x_test,y_test))
-train_error, test_error = calc_metrics(x_train, y_train, x_test, y_test, lr)
+print("Testing R^2:", model.score(x_test,y_test))   
 #Perform 10-Fold Cross Validation
 scores = cross_val_score(model, df, y, cv=10)
 print("Cross-validated scores:", scores)
