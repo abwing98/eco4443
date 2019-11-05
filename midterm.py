@@ -28,7 +28,14 @@ cbd_dist = DataFrame(data.cbd_dist)
 x_coord = DataFrame(data.x_coord)
 y_coord = DataFrame(data.y_coord)
 
+import pandas as pd
+df = pd.DataFrame(data)
+corrmatrix = df.corr()
+
+#scale price data
 data.price = data.price/1000
+
+#split dependent data into training/testing sets
 y_train = data.price[:8000]
 y_test = data.price[8000:]
 
