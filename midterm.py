@@ -27,3 +27,43 @@ pool = DataFrame(data.pool)
 cbd_dist = DataFrame(data.cbd_dist)
 x_coord = DataFrame(data.x_coord)
 y_coord = DataFrame(data.y_coord)
+
+data.price = data.price/1000
+y_train = data.price[:8000]
+y_test = data.price[8000:]
+
+model = smf.ols('price ~ home_size + x_coord + y_coord + age', data=data.price[:8000])
+results = model.fit()
+print(results.summary())
+print(results.summary())
+pred_train = results.predict(data[:8000])
+pred_test  = results.predict(data[8000:])
+
+train_mse1 = sum((y_train - pred_train)**2)/results.nobs
+test_mse1 = sum((y_test - pred_test)**2)/len(y_test)
+
+model1 = smf.ols('price ~ home_size + np.power(home_size, 2) + np.power(home_size, 3) + cbd_dist + np.power(cbd_dist, 2) + np.power(cbd_dist, 3)', data=(data.price[:8000]))
+results = model1.fit()
+print(results.summary())
+print(results.summary())
+pred_train = results.predict(data[:8000])
+pred_test  = results.predict(data[8000:])
+
+train_mse1 = sum((y_train - pred_train)**2)/results.nobs
+test_mse1 = sum((y_test - pred_test)**2)/len(y_test)
+
+model2 = smf.ols('price ~ beds + home_size + cbd_dist + year + parcel_size + x_coord + y_coord + age + np.power(age, 2)', data=(data.price[:8000]))
+results = model2.fit()
+print(results.summary())
+print(results.summary())
+pred_train = results.predict(data[:8000])
+pred_test  = results.predict(data[8000:])
+
+train_mse1 = sum((y_train - pred_train)**2)/results.nobs
+test_mse1 = sum((y_test - pred_test)**2)/len(y_test)
+
+
+
+
+
+
