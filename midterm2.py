@@ -1,4 +1,3 @@
-
 from pandas import read_csv
 import numpy as np
 import statsmodels.api as sm
@@ -18,6 +17,7 @@ from sklearn.model_selection import KFold
 from sklearn.model_selection import cross_val_score, cross_val_predict
 from sklearn import metrics
 from sklearn.metrics import mean_squared_error
+
 
 #MODEL 1
 fulldata = read_csv('/Users/Adam/sales.csv',delimiter=',',)
@@ -40,7 +40,9 @@ plt.xlabel("True Values")
 plt.ylabel("Predictions")
 plt.title("Model 1 (Pre Cross-Validation)")
 #score the model
-print("Score:", model.score(x_test,y_test))
+print("Training R^2:", model.score(x_train,y_train))
+print("Testing R^2:", model.score(x_test,y_test))
+
 #Perform 10-Fold Cross Validation
 scores = cross_val_score(model, df, y, cv=10)
 print("Cross-validated scores:", scores)
@@ -88,7 +90,8 @@ plt.xlabel("True Values")
 plt.ylabel("Predictions")
 plt.title("Model 2 (Pre Cross-Validation)")
 #score the model
-print("Score:", model.score(x_test,y_test))
+print("Training R^2:", model.score(x_train,y_train))
+print("Testing R^2:", model.score(x_test,y_test))
 #Perform 10-Fold Cross Validation
 scores = cross_val_score(model, df, y, cv=10)
 print("Cross-validated scores:", scores)
@@ -99,8 +102,7 @@ plt.title("Model 2 (Cross-Validated)")
 #Check Rsquared
 accuracy = metrics.r2_score(y, predictions)
 print("Cross-Predicted Accuracy:", accuracy)
-results = model.score(x_test, y_test)
-print("Accuracy: %.3f%%" % (results*100.0))
+
 
 #MODEL 3
 fulldata = read_csv('/Users/Adam/sales.csv',delimiter=',',)
@@ -125,7 +127,8 @@ plt.xlabel("True Values")
 plt.ylabel("Predictions")
 plt.title("Model 3 (Pre Cross-Validation)")
 #score the model
-print("Score:", model.score(x_test,y_test))
+print("Training R^2:", model.score(x_train,y_train))
+print("Testing R^2:", model.score(x_test,y_test))
 #Perform 10-Fold Cross Validation
 scores = cross_val_score(model, df, y, cv=10)
 print("Cross-validated scores:", scores)
@@ -167,7 +170,9 @@ plt.xlabel("True Values")
 plt.ylabel("Predictions")
 plt.title("Model 4 (Pre Cross-Validation)")
 #score the model
-print("Score:", model.score(x_test,y_test))
+print("Training R^2:", model.score(x_train,y_train))
+print("Testing R^2:", model.score(x_test,y_test))
+
 #Perform 10-Fold Cross Validation
 scores = cross_val_score(model, df, y, cv=10)
 print("Cross-validated scores:", scores)
@@ -211,7 +216,8 @@ plt.xlabel("True Values")
 plt.ylabel("Predictions")
 plt.title("Model 5 (Pre Cross-Validation)")
 #score the model
-print("Score:", model.score(x_test,y_test))
+print("Training R^2:", model.score(x_train,y_train))
+print("Testing R^2:", model.score(x_test,y_test))
 #Perform 10-Fold Cross Validation
 scores = cross_val_score(model, df, y, cv=10)
 print("Cross-validated scores:", scores)
@@ -257,7 +263,8 @@ plt.xlabel("True Values")
 plt.ylabel("Predictions")
 plt.title("Model 6 (Pre Cross-Validation)")
 #score the model
-print("Score:", model.score(x_test,y_test))
+print("Training R^2:", model.score(x_train,y_train))
+print("Testing R^2:", model.score(x_test,y_test))
 #Perform 10-Fold Cross Validation
 scores = cross_val_score(model, df, y, cv=10)
 print("Cross-validated scores:", scores)
@@ -304,7 +311,9 @@ plt.xlabel("True Values")
 plt.ylabel("Predictions")
 plt.title("Model 7 (Pre Cross-Validation)")
 #score the model
-print("Score:", model.score(x_test,y_test))
+print("Training R^2:", model.score(x_train,y_train))
+print("Testing R^2:", model.score(x_test,y_test))
+train_error, test_error = calc_metrics(x_train, y_train, x_test, y_test, lr)
 #Perform 10-Fold Cross Validation
 scores = cross_val_score(model, df, y, cv=10)
 print("Cross-validated scores:", scores)
@@ -350,7 +359,8 @@ plt.xlabel("True Values")
 plt.ylabel("Predictions")
 plt.title("Model 8 (Pre Cross-Validation)")
 #score the model
-print("Score:", model.score(x_test,y_test))
+print("Training R^2:", model.score(x_train,y_train))
+print("Testing R^2:", model.score(x_test,y_test))
 #Perform 10-Fold Cross Validation
 scores = cross_val_score(model, df, y, cv=10)
 print("Cross-validated scores:", scores)
