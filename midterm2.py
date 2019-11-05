@@ -416,6 +416,48 @@ plt.title("Model 8 (Cross-Validated)")
 #Check Rsquared
 accuracy = metrics.r2_score(y, predictions)
 print("Cross-Predicted Accuracy:", accuracy)
-mse = mean_squared_error(y, predictions)
-print("MSE:",mse)
 
+
+
+#Fit all of data with superior model
+#MODEL 2
+fulldata = read_csv('/Users/Adam/sales.csv',delimiter=',',)
+data = read_csv('/Users/Adam/sales.csv', delimiter=',' , usecols=(1,2,3,4,5,6,7,8,9))
+#define target (dependent) variable as y
+y = pd.DataFrame(fulldata.price)
+#create exponential variables
+hsize2 = np.power(data.home_size,2)
+hsize3 = np.power(data.home_size,3)
+hsize4 = np.power(data.home_size,4)
+beds2 = np.power(data.beds,2)
+beds3 = np.power(data.beds,3)
+beds4 = np.power(data.beds,4)
+cbd_hsize = np.multiply(data.cbd_dist, data.home_size)
+cbd_beds = np.multiply(data.cbd_dist, data.beds) 
+beds_hsize = np.multiply(data.beds, data.home_size)
+#create new dataframe with our models variables: home size^1,2,3,4; beds^1,2,3,4; cbd_dist*home_size; cbd_dist*beds; beds*home_size
+new = [data.home_size, hsize2, hsize3, hsize4, data.beds, beds2, beds3, beds4, data.cbd_dist, cbd_hsize, cbd_beds, beds_hsize]
+df = pd.DataFrame(new)
+df = np.transpose(df)
+#fit a model
+model = LinearRegression()
+model.fit(df,y)
+#plot the model
+plt.scatter(y_test, testpredictions)
+plt.xlabel("True Values")
+plt.ylabel("Predictions")
+plt.title("Model 2 (Estimating Whole Dataset)")
+#score the model
+print("R^2:", model.score(df,y))
+
+(4500, 12) (4500, 1)
+(500, 12) (500, 1)
+Training R^2: 0.6820307390779174
+Testing R^2: 0.7884524680570247
+Train MSE= price    3416.297967
+dtype: float64
+Test MSE= price    2073.140352
+dtype: float64
+Cross-validated scores: [0.76333    0.64328504 0.22122324 0.70067431 0.65729694 0.77119813
+ 0.70641923 0.7141794  0.22667466 0.55698388]
+Cross-Predicted Accuracy: 0.5557643578026634
