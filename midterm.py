@@ -8,15 +8,6 @@ Created on Mon Nov  4 11:03:14 2019
 from pandas import read_csv
 
 data = read_csv('/Users/Adam/sales.csv',delimiter=',',)
-
-import numpy as np
-import statsmodels.api as sm
-import statsmodels.formula.api as smf
-import matplotlib.mlab as mlab
-import matplotlib.pyplot as plt
-from statsmodels.api import add_constant
-from pandas import DataFrame
-
 price = DataFrame(data.price)
 year = DataFrame(data.year)
 home_size = DataFrame(data.home_size)
@@ -27,8 +18,6 @@ pool = DataFrame(data.pool)
 cbd_dist = DataFrame(data.cbd_dist)
 x_coord = DataFrame(data.x_coord)
 y_coord = DataFrame(data.y_coord)
-
-import pandas as pd
 df = pd.DataFrame(data)
 corrmatrix = df.corr()
 
@@ -98,4 +87,3 @@ pred_test  = results.predict(data[8000:])
 
 train_mse5 = sum((y_train - pred_train)**2)/results.nobs
 test_mse5 = sum((y_test - pred_test)**2)/len(y_test)
-
