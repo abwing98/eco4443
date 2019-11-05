@@ -17,6 +17,7 @@ from sklearn.model_selection import train_test_split
 from sklearn.model_selection import KFold
 from sklearn.model_selection import cross_val_score, cross_val_predict
 from sklearn import metrics
+from sklearn.metrics import mean_squared_error
 
 #MODEL 1
 fulldata = read_csv('/Users/Adam/sales.csv',delimiter=',',)
@@ -37,6 +38,7 @@ predictions = model.predict(x_test)
 plt.scatter(y_test, predictions)
 plt.xlabel("True Values")
 plt.ylabel("Predictions")
+plt.title("Model 1 (Pre Cross-Validation)")
 #score the model
 print("Score:", model.score(x_test,y_test))
 #Perform 10-Fold Cross Validation
@@ -45,6 +47,7 @@ print("Cross-validated scores:", scores)
 #Make cross validated predictions
 predictions = cross_val_predict(model, df, y, cv=10)
 plt.scatter(y, predictions)
+plt.title("Model 1 (Cross-Validated)")
 #Check Rsquared
 accuracy = metrics.r2_score(y, predictions)
 print("Cross-Predicted Accuracy:", accuracy)
@@ -83,6 +86,7 @@ predictions = model.predict(x_test)
 plt.scatter(y_test, predictions)
 plt.xlabel("True Values")
 plt.ylabel("Predictions")
+plt.title("Model 2 (Pre Cross-Validation)")
 #score the model
 print("Score:", model.score(x_test,y_test))
 #Perform 10-Fold Cross Validation
@@ -91,6 +95,7 @@ print("Cross-validated scores:", scores)
 #Make cross validated predictions
 predictions = cross_val_predict(model, df, y, cv=10)
 plt.scatter(y, predictions)
+plt.title("Model 2 (Cross-Validated)")
 #Check Rsquared
 accuracy = metrics.r2_score(y, predictions)
 print("Cross-Predicted Accuracy:", accuracy)
@@ -118,6 +123,7 @@ predictions = model.predict(x_test)
 plt.scatter(y_test, predictions)
 plt.xlabel("True Values")
 plt.ylabel("Predictions")
+plt.title("Model 3 (Pre Cross-Validation)")
 #score the model
 print("Score:", model.score(x_test,y_test))
 #Perform 10-Fold Cross Validation
@@ -126,6 +132,7 @@ print("Cross-validated scores:", scores)
 #Make cross validated predictions
 predictions = cross_val_predict(model, df, y, cv=10)
 plt.scatter(y, predictions)
+plt.title("Model 3 (Cross-Validated)")
 #Check Rsquared
 accuracy = metrics.r2_score(y, predictions)
 print("Cross-Predicted Accuracy:", accuracy)
@@ -158,6 +165,7 @@ predictions = model.predict(x_test)
 plt.scatter(y_test, predictions)
 plt.xlabel("True Values")
 plt.ylabel("Predictions")
+plt.title("Model 4 (Pre Cross-Validation)")
 #score the model
 print("Score:", model.score(x_test,y_test))
 #Perform 10-Fold Cross Validation
@@ -166,6 +174,7 @@ print("Cross-validated scores:", scores)
 #Make cross validated predictions
 predictions = cross_val_predict(model, df, y, cv=10)
 plt.scatter(y, predictions)
+plt.title("Model 4 (Cross-Validated)")
 #Check Rsquared
 accuracy = metrics.r2_score(y, predictions)
 print("Cross-Predicted Accuracy:", accuracy)
@@ -200,6 +209,7 @@ predictions = model.predict(x_test)
 plt.scatter(y_test, predictions)
 plt.xlabel("True Values")
 plt.ylabel("Predictions")
+plt.title("Model 5 (Pre Cross-Validation)")
 #score the model
 print("Score:", model.score(x_test,y_test))
 #Perform 10-Fold Cross Validation
@@ -208,6 +218,7 @@ print("Cross-validated scores:", scores)
 #Make cross validated predictions
 predictions = cross_val_predict(model, df, y, cv=10)
 plt.scatter(y, predictions)
+plt.title("Model 5 (Cross-Validated)")
 #Check Rsquared
 accuracy = metrics.r2_score(y, predictions)
 print("Cross-Predicted Accuracy:", accuracy)
@@ -244,6 +255,7 @@ predictions = model.predict(x_test)
 plt.scatter(y_test, predictions)
 plt.xlabel("True Values")
 plt.ylabel("Predictions")
+plt.title("Model 6 (Pre Cross-Validation)")
 #score the model
 print("Score:", model.score(x_test,y_test))
 #Perform 10-Fold Cross Validation
@@ -252,6 +264,7 @@ print("Cross-validated scores:", scores)
 #Make cross validated predictions
 predictions = cross_val_predict(model, df, y, cv=10)
 plt.scatter(y, predictions)
+plt.title("Model 6 (Cross-Validated)")
 #Check Rsquared
 accuracy = metrics.r2_score(y, predictions)
 print("Cross-Predicted Accuracy:", accuracy)
@@ -289,6 +302,7 @@ predictions = model.predict(x_test)
 plt.scatter(y_test, predictions)
 plt.xlabel("True Values")
 plt.ylabel("Predictions")
+plt.title("Model 7 (Pre Cross-Validation)")
 #score the model
 print("Score:", model.score(x_test,y_test))
 #Perform 10-Fold Cross Validation
@@ -297,6 +311,7 @@ print("Cross-validated scores:", scores)
 #Make cross validated predictions
 predictions = cross_val_predict(model, df, y, cv=10)
 plt.scatter(y, predictions)
+plt.title("Model 7 (Cross-Validated)")
 #Check Rsquared
 accuracy = metrics.r2_score(y, predictions)
 print("Cross-Predicted Accuracy:", accuracy)
@@ -316,7 +331,7 @@ ycoord2 = np.power(data.y_coord,2)
 hsize_beds = np.multiply(data.beds, data.home_size)
 psize_hsize = np.multiply(data.parcel_size, data.home_size)
 psize_beds = np.multiply(data.beds, data.parcel_size)
-hsize_beds_psize = np.multiply(data.beds, data.home_size, data.parcel_size)
+hsize_beds_psize = np.multiply(data.home_size, psize_beds)
 #create new dataframe with our models variables: home_size, year^2, parcel_size, beds, age^2, pool, cbd_dist, x_coord^2, y_coord^2, (home_size*beds), (home_size*parcel_size), (beds*parcel_size), (home_size*beds*parcel_size)
 new = [data.home_size, year2, data.parcel_size, data.beds, age2, data.pool, data.cbd_dist, xcoord2, ycoord2, hsize_beds, psize_hsize, psize_beds, hsize_beds_psize]
 df = pd.DataFrame(new)
@@ -333,6 +348,7 @@ predictions = model.predict(x_test)
 plt.scatter(y_test, predictions)
 plt.xlabel("True Values")
 plt.ylabel("Predictions")
+plt.title("Model 8 (Pre Cross-Validation)")
 #score the model
 print("Score:", model.score(x_test,y_test))
 #Perform 10-Fold Cross Validation
@@ -341,8 +357,10 @@ print("Cross-validated scores:", scores)
 #Make cross validated predictions
 predictions = cross_val_predict(model, df, y, cv=10)
 plt.scatter(y, predictions)
+plt.title("Model 8 (Cross-Validated)")
 #Check Rsquared
 accuracy = metrics.r2_score(y, predictions)
 print("Cross-Predicted Accuracy:", accuracy)
-results = model.score(x_test, y_test)
-print("Accuracy: %.3f%%" % (results*100.0))
+mse = mean_squared_error(y, predictions)
+print("MSE:",mse)
+
